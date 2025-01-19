@@ -6,47 +6,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <style>
+        .toast {
+            visibility: hidden;
+            max-width: 70%;
+            margin: 0 auto;
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: -50px;
+            bottom: 30px;
+            font-size: 17px;
+            transform: translateX(-50%);
+            animation: fadein 1s, fadeout 0.5s 2.5s;
+        }
+
+        .toast.show {
+            visibility: visible;
+        }
+
+        @keyframes fadein {
+            from {
+                left: 0;
+                opacity: 0;
+            }
+
+            to {
+                left: 90px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                left: 90px;
+                opacity: 1;
+            }
+
+            to {
+                left: 0;
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="content">
-            <!-- Pinterest logo -->
-            <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="Pinterest logo" class="img1" />
-            <p class="header">Log in to see more</p>
-
-            <form action="/login" method="POST">
-                <input type="text" id="username" name="username" placeholder="Username" class="detail" required /><br />
-
-                <input type="password" id="password" name="password" placeholder="Password" class="detail" required /><br />
-
-                <h4><a href="/forgot">Forgot your password?</a></h4>
-
-                <button type="submit" class="btn int">Log In</button>
-            </form>
-
-            <p class="or">OR</p>
-
-            <button class="btn fbk">
-                <i class="fab fa-facebook fa-lg" style="color: white; padding-right: 10px"></i>
-                <a href="#">Continue with Facebook</a>
-            </button><br />
-
-            <button class="btn ggl">
-                <i class="fab fa-google" style="color: rgb(11, 241, 22); padding-right: 10px"></i>
-                <a href="#">Continue with Google</a>
-            </button>
-
-            <footer>
-                <p>
-                    By continuing, you agree to Pinterest's
-                    <b>Terms of Service, Privacy Policy.</b>
-                </p>
-                <hr />
-                <p>New to Pinterest? <a href="/register">Sign up</a></p>
-            </footer>
+    <% if (typeof error !=='undefined' ) { %>
+        <div class="toast">
+            <p>
+                <%= error %>
+            </p>
         </div>
-    </div>
+        <% } %>
+            <div class="container">
+
+
+                <div class="content">
+                    <!-- Pinterest logo -->
+                    <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png"
+                        alt="Pinterest logo" class="img1" />
+                    <p class="header">Log in to see more</p>
+
+                    <form action="/login" method="POST">
+
+                        <input type="text" id="username" name="username" placeholder="Username" class="detail"
+                            required /><br />
+
+                        <input type="password" id="password" name="password" placeholder="Password" class="detail"
+                            required /><br />
+
+                        <h4><a href="/forgot">Forgot your password?</a></h4>
+
+                        <button type="submit" class="btn int">Log In</button>
+
+
+                    </form>
+
+                    <p class="or">OR</p>
+
+                    <button class="btn fbk">
+                        <i class="fab fa-facebook fa-lg" style="color: white; padding-right: 10px"></i>
+                        <a href="#">Continue with Facebook</a>
+                    </button><br />
+
+                    <button class="btn ggl">
+                        <i class="fab fa-google" style="color: rgb(11, 241, 22); padding-right: 10px"></i>
+                        <a href="#">Continue with Google</a>
+                    </button>
+
+                    <footer>
+                        <p>
+                            By continuing, you agree to Pinterest's
+                            <b>Terms of Service, Privacy Policy.</b>
+                        </p>
+                        <hr />
+                        <p>New to Pinterest? <a href="/register">Sign up</a></p>
+                    </footer>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <script>
+                window.onload = function () {
+                    var toast = document.querySelector('.toast');
+                    if (toast) {
+                        toast.classList.add('show');
+                        setTimeout(function () {
+                            toast.classList.remove('show');
+                        }, 3000);
+                    }
+                };
+            </script>
+
+
 </body>
 
 </html>

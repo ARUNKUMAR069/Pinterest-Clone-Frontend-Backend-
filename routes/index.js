@@ -6,6 +6,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local')
 passport.use(new localStrategy(UserModel.authenticate()));
 
+
 //  Routes
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -14,7 +15,7 @@ router.get('/', function (req, res, next) {
 // Login
 router.get('/login', function (req, res) {
 
-res.render('login');
+  res.render('login',{error: req.flash('error')});
 
 });
 
@@ -40,7 +41,8 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/profile',
-  failureRedirect: '/'
+  failureRedirect: '/login',
+  failureFlash: true
 }), function (req, res) {
 });
 
@@ -62,13 +64,20 @@ router.get('/logout', function (req, res) {
 //  Profile route
 router.get('/profile', isLoggedIn, async function (req, res) {
   try {
-    const user = await UserModel.findById(req.user._id);
+    const user = await UserModel.findOne({username:req.session.passport.user});
     res.render('profile', { user });
+    console.log(user);
   } catch (err) {
     res.redirect('/');
   }
 });
 
+// Feed route
+
+router.get('/feed', isLoggedIn, async function (req, res) {
+
+  res.render('feed');
+});  
 
 
 
@@ -79,16 +88,6 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect('/');
 }
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = router;
