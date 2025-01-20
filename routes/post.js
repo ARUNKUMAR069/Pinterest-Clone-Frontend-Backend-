@@ -8,6 +8,9 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now
@@ -20,10 +23,6 @@ const postSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-
-    }
 });
 
 
