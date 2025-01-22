@@ -76,6 +76,7 @@ router.post('/upload', isLoggedIn, upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send('No files were uploaded');
   }
+  
 
 
   //  KJo file upload hui hai use save karo as a post and uscka id user ke posts array me add karo

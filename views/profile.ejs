@@ -62,7 +62,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <% user.posts.forEach(function(post) { %>
         <div class="bg-white rounded-lg shadow hover-scale overflow-hidden">
-          <img src="<%=post.image%>" alt="Post" class="w-full h-40 object-cover">
+          <img src="/images/uploads/<%=post.image%>" alt="Post" class="w-full h-40 object-cover">
           <div class="p-4">
             <h3 class="text-lg font-semibold">
               <%= post.postText %>
